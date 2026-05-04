@@ -1,0 +1,97 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribuição / build
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Ambiente virtual
+venv/
+.env/
+.venv/
+env/
+ENV/
+
+# Variáveis de ambiente
+.env
+.env.*
+
+# Configurações locais do Django
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Arquivos de mídia e estáticos coletados
+/media/
+staticfiles/
+static/
+
+# Logs
+*.log
+
+# Arquivos de cache
+*.pot
+*.pyc
+*.pyo
+*.pyd
+.cache/
+.pytest_cache/
+coverage.xml
+htmlcov/
+
+# IDEs / editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de migração (opcional — depende do fluxo do projeto)
+# migrations/
+# */migrations/
+# !*/migrations/__init__.py
+
+# Arquivos de testes
+.coverage
+nosetests.xml
+
+# Segurança
+*.pem
+*.key
+*.crt
+
+# Docker (se usar)
+*.pid
+*.sock
+
+# Node (caso tenha frontend integrado)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos temporários
+tmp/
+temp/
