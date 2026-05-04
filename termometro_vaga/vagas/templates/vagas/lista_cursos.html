@@ -1,0 +1,18 @@
+{% extends 'vagas/base.html' %}
+{% block content %}
+<h2>Cursos com Vagas Abertas</h2>
+{% for curso in cursos %}
+<div class="card" data-testid="curso-card">
+  <h3 data-testid="curso-nome">{{ curso.nome }}</h3>
+  <p style="color:#7f8c8d;margin:10px 0">{{ curso.descricao }}</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-value" data-testid="total-vagas">{{ curso.total_vagas }}</div><div class="stat-label">Total</div></div>
+    <div class="stat"><div class="stat-value" data-testid="vagas-ocupadas">{{ curso.vagas_ocupadas }}</div><div class="stat-label">Aprovados</div></div>
+    <div class="stat"><div class="stat-value" data-testid="vagas-disponiveis">{{ curso.vagas_disponiveis }}</div><div class="stat-label">Disponiveis</div></div>
+  </div>
+  <a href="{% url 'detalhe_curso' curso.id %}" class="btn" data-testid="btn-ver-curso">Ver Detalhes</a>
+</div>
+{% empty %}
+<div class="card"><p>Nenhum curso cadastrado. Rode <code>python manage.py seed</code>.</p></div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'vagas/base.html' %}
+{% block content %}
+<h2>Consultar Minha Posicao</h2>
+<div class="card">
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>Digite seu CPF:</label>
+      <input type="text" name="cpf" class="form-input" placeholder="000.000.000-00" data-testid="input-cpf">
+    </div>
+    <button type="submit" class="btn" data-testid="btn-consultar">Consultar</button>
+  </form>
+</div>
+
+{% if candidato %}
+<div class="card">
+  <h3>Resultado</h3>
+  <p><strong>Nome:</strong> <span data-testid="resultado-nome">{{ candidato.nome }}</span></p>
+  <p><strong>Curso:</strong> {{ candidato.curso.nome }}</p>
+  {% if candidato.status == 'aprovado' %}
+    <p><strong>Status:</strong> <span data-testid="status" style="color:#27ae60;font-weight:bold">APROVADO</span></p>
+  {% else %}
+    <p><strong>Status:</strong> <span data-testid="status" style="color:#f39c12;font-weight:bold">Em espera</span></p>
+    {% if posicao %}<p data-testid="posicao">Voce e o(a) <strong>{{ posicao }}o</strong> da fila.</p>{% endif %}
+  {% endif %}
+</div>
+{% elif consultou %}
+<div class="card"><p data-testid="nao-encontrado">CPF nao encontrado.</p></div>
+{% endif %}
+{% endblock %}

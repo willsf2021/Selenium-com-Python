@@ -1,0 +1,55 @@
+{% extends 'vagas/base.html' %}
+{% block content %}
+<h2 data-testid="curso-nome">{{ curso.nome }}</h2>
+<p style="color:#7f8c8d;margin-bottom:20px">{{ curso.descricao }}</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-value" data-testid="total-vagas">{{ curso.total_vagas }}</div><div class="stat-label">Total</div></div>
+  <div class="stat"><div class="stat-value" data-testid="vagas-ocupadas">{{ curso.vagas_ocupadas }}</div><div class="stat-label">Aprovados</div></div>
+  <div class="stat"><div class="stat-value" data-testid="vagas-disponiveis">{{ curso.vagas_disponiveis }}</div><div class="stat-label">Disponiveis</div></div>
+</div>
+
+<div class="card">
+  <h3>Inscrever-se</h3>
+  <form method="post" data-testid="form-inscricao">
+    {% csrf_token %}
+    <div class="form-group"><label>Nome:</label>{{ form.nome }}{{ form.nome.errors }}</div>
+    <div class="form-group"><label>E-mail:</label>{{ form.email }}{{ form.email.errors }}</div>
+    <div class="form-group"><label>CPF:</label>{{ form.cpf }}{{ form.cpf.errors }}</div>
+    <div class="form-group"><label>Tipo de Vaga:</label>{{ form.tipo }}{{ form.tipo.errors }}</div>
+    <button type="submit" class="btn" data-testid="btn-inscrever">Inscrever-se</button>
+  </form>
+</div>
+
+<div class="card">
+  <h3>Fila de Espera (<span data-testid="fila-count">{{ fila.count }}</span>)</h3>
+  <div data-testid="lista-fila">
+    {% for c in fila %}
+    <div class="fila-item" data-testid="fila-item">
+      <div><strong>{{ forloop.counter }}.</strong> <span data-testid="fila-nome">{{ c.nome }}</span></div>
+      <span class="badge {% if c.tipo == 1 %}badge-cotista{% else %}badge-ampla{% endif %}" data-testid="fila-tipo">{{ c.get_tipo_display }}</span>
+    </div>
+    {% empty %}
+    <p data-testid="fila-vazia">Nenhum candidato na fila.</p>
+    {% endfor %}
+  </div>
+  <form method="post" action="{% url 'liberar_vaga' curso.id %}" style="margin-top:20px">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success" data-testid="btn-liberar-vaga">Liberar Proxima Vaga</button>
+  </form>
+</div>
+
+{% if aprovados %}
+<div class="card">
+  <h3>Aprovados (<span data-testid="aprovados-count">{{ aprovados.count }}</span>)</h3>
+  <div data-testid="lista-aprovados">
+    {% for c in aprovados %}
+    <div class="fila-item" data-testid="aprovado-item">
+      <span data-testid="aprovado-nome">{{ c.nome }}</span>
+      <span class="badge {% if c.tipo == 1 %}badge-cotista{% else %}badge-ampla{% endif %}">{{ c.get_tipo_display }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}
